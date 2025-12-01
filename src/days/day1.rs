@@ -1,4 +1,6 @@
-use crate::DaySolver;
+use std::path::Path;
+
+use crate::{Day, DayPart, Test};
 
 fn parse(data: &str) -> Vec<LockRotation> {
     data.lines().map(|s| {
@@ -16,10 +18,11 @@ fn parse(data: &str) -> Vec<LockRotation> {
     }).collect()
 }
 
-pub struct Day1Solver;
+pub struct PartOne;
+pub struct PartTwo;
 
-impl DaySolver for Day1Solver {
-    fn solve_a(&self, data: &str) -> u64 {
+impl DayPart for PartOne {
+    fn solve(&self, data: &str) -> u64 {
         let rotations = parse(data);
 
         let mut counter = 0;
@@ -31,8 +34,18 @@ impl DaySolver for Day1Solver {
 
         counter
     }
+    
+    fn tests(&self) -> Vec<Test> {
+        todo!()
+    }
+    
+    fn data_path(&self) -> Box<Path> {
+        Path::new("./data/1a.txt").into()
+    }
+}
 
-    fn solve_b(&self, data: &str) -> u64 {
+impl DayPart for PartTwo {
+    fn solve(&self, data: &str) -> u64 {
         let rotations = parse(data);
 
         let mut counter = 0;
@@ -43,6 +56,14 @@ impl DaySolver for Day1Solver {
         }.rotate(rotations);
 
         counter
+    }
+    
+    fn tests(&self) -> Vec<Test> {
+        todo!()
+    }
+    
+    fn data_path(&self) -> Box<Path> {
+        Path::new("./data/1b.txt").into()
     }
 }
 
