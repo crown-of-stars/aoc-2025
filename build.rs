@@ -35,7 +35,6 @@ fn main() {
     });
     
     let dest_path = Path::new(&out_dir).join("days").join("mod.rs");
-    println!("AAAA {}", dest_path.display());
     let generated_uses = fs::read_dir(Path::new("./src/days/")).unwrap().map(|path| {
         let mut s = path.unwrap().file_name().into_string().expect("should be a string");
         (0..3).for_each(|_| { s.pop(); });
@@ -47,5 +46,4 @@ fn main() {
         format!("{}
         ", generated_uses)
     ).unwrap();
-    // panic!()
 }
