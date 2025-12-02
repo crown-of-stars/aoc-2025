@@ -5,13 +5,11 @@ use std::path::Path;
 fn main() {
     let out_dir = env::var_os("OUT_DIR").unwrap();
     let dest_path = Path::new(&out_dir).join("generate_day.rs");
-    println!("AAAA {}", dest_path.display());
     let generated_match_branches = fs::read_dir(Path::new("./src/days/")).unwrap().map(|path| {
         let mut s = path.unwrap().file_name().into_string().expect("should be a string");
         (0..3).for_each(|_| { s.pop(); });
         format!("{} => Ok(Day {{ part_one: Box::new(days::{}::PartOne {{}}), part_two: Box::new(days::{}::PartTwo {{}}) }}),", &s[3..], s, s)
     }).collect::<Vec<_>>().join("\n           ");
-    println!("{}", generated_match_branches);
     fs::write(
         &dest_path,
         format!("mod days;
@@ -40,7 +38,6 @@ fn main() {
         (0..3).for_each(|_| { s.pop(); });
         format!("pub mod {};", s)
     }).collect::<Vec<_>>().join("\n");
-    println!("{}", generated_uses);
     fs::write(
         &dest_path,
         format!("{}
