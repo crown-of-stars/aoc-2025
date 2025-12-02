@@ -1,6 +1,6 @@
 use std::path::Path;
 
-use crate::{Day, DayPart, Test};
+use crate::{DayPart, Test};
 
 fn parse(data: &str) -> Vec<LockRotation> {
     data.lines().map(|s| {
@@ -36,7 +36,11 @@ impl DayPart for PartOne {
     }
     
     fn tests(&self) -> Vec<Test> {
-        todo!()
+        vec![Test {
+            id: 1,
+            path: Path::new("./data/1a_t1.txt"),
+            expected: 3
+        }]
     }
     
     fn data_path(&self) -> Box<Path> {
@@ -59,7 +63,11 @@ impl DayPart for PartTwo {
     }
     
     fn tests(&self) -> Vec<Test> {
-        todo!()
+        vec![Test {
+            id: 1,
+            path: Path::new("./data/1a_t1.txt"),
+            expected: 6
+        }]
     }
     
     fn data_path(&self) -> Box<Path> {

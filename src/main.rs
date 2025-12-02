@@ -1,25 +1,21 @@
 use std::env;
 use std::path::Path;
 use std::fs;
-use days::*;
-use tests::*;
-use generate_day::get_day;
 
-mod days;
-mod tests;
-mod generate_day;
+include!(concat!(env!("OUT_DIR"), "\\generate_day.rs"));
 
 fn main() {
+    println!(concat!(env!("OUT_DIR"), "\\generate_day.rs"));
     if let Some(n) = env::args().nth(1) {
-        let day = get_day( n.parse().expect("Please pass a number") ).expect("Please pass a valid day number");
+        let day = get_day( n.parse().expect("Please pass a number") ).expect("Please pass a valid day number.");
 
-        println!("Running tests for part 1.");
+        println!("# Running tests for part 1.");
         day.part_one.evaluate_tests();
-        print!("Result for part 1 ");
+        print!("\nResult for part 1: ");
         day.part_one.evaluate_solution();
-        println!("Running tests for part 2.");
+        println!("\n# Running tests for part 2.");
         day.part_two.evaluate_tests();
-        print!("Result for part 2 ");
+        print!("\nResult for part 2: ");
         day.part_two.evaluate_solution();
     } else {
         panic!("Please pass a number");
@@ -46,17 +42,23 @@ trait DayPart {
     fn evaluate_tests(&self) {
         let result = self.tests().iter().fold(true, |b, test| {
             if !b { return b; }
-            print!(": Tests ...");
+            print!(": Test {} ", test.id);
             let data = fs::read_to_string(test.path).expect("File error");
             let solution = self.solve(data.as_str());
             if solution == test.expected {
-                println!(" \x1b[92m✓\x1b[0m");
+                println!("\x1b[92m✓\x1b[0m");
             } else {
-                println!(" \x1b[91m✖ FAILED\x1b[0m");
+                println!("\x1b[91m✖ FAILED\x1b[0m");
                 println!("Result: {}", solution);
             }
             solution == test.expected
         });
         if !result { panic!("Failed tests") }
     }
+}
+
+pub struct Test<'a> {
+    pub id: usize,
+    pub path: &'a Path,
+    pub expected: u64,
 }
