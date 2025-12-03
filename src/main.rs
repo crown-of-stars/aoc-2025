@@ -73,9 +73,6 @@ fn bench(part: Box<dyn DayPart>) {
 
     use std::time::Instant;
 
-    let mut steps = 0;
-    let mut ticking_up = 0;
-
     let times: Vec<_> = (0..BENCH_COUNT).map(|_| {
         let now = Instant::now();
         let _ = part.solve(data.as_str());
