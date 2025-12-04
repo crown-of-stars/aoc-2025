@@ -66,7 +66,6 @@ pub struct Test<'a> {
 }
 
 const BENCH_COUNT: usize = 1000;
-const BACKSPACE: char = 8u8 as char;
 
 fn bench(part: Box<dyn DayPart>) {    
     let data = fs::read_to_string(part.data_path()).expect("File error");
