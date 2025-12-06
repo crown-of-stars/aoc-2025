@@ -24,12 +24,12 @@ fn main() {
     ).unwrap();
     
     let dest_dir_path = Path::new(&out_dir).join("days");
-    fs::create_dir(dest_dir_path);
+    let _ = fs::create_dir(dest_dir_path);
 
     fs::read_dir(Path::new("./src/days/")).unwrap().for_each(|path| {
         let location = path.unwrap();
         let name = location.file_name().into_string().expect("should be a string");
-        fs::copy(location.path(), Path::new(&out_dir).join("days").join(name));
+        let _ = fs::copy(location.path(), Path::new(&out_dir).join("days").join(name));
     });
     
     let dest_path = Path::new(&out_dir).join("days").join("mod.rs");
